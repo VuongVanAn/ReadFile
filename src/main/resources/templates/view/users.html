@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>User</title>
+<script type="text/javascript" src="webjars/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript"
+	src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<h2>FileUpload</h2>
+				<div class="alert alert-success alert-dismissible fade show"
+					role="alert" th:if="${successmessage}">
+					<strong th:text="${successmessage}"></strong> 
+					<button type="button" class="close" data-dismiss="alert"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="alert alert-danger alert-dismissible fade show"
+					role="alert" th:if="${errormessage}">
+					<strong th:text="${errormessage}"></strong> 
+					<button type="button" class="close" data-dismiss="alert"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+
+				<form th:action="@{/fileupload}" th:object="${user}"
+					method="post" enctype="multipart/form-data">
+					<div class="form-group">
+						<label>File Upload(EXCEL or CSV or JSON)</label>
+						<input type="file" class="form-control" name="file" th:field="*{file}" />
+					</div>
+					<button type="submit" class="btn btn-primary">Upload</button>
+				</form>
+			</div>
+			<div class="col-md-12">
+				<h2>All Users</h2>
+				<table class="table">
+					<thead class="thead-light">
+						<tr>
+							<th>First Name</th>
+							<th>Last Name</th>
+							<th>Email</th>
+							<th>Phone Number</th>
+							<th>File Type</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="user: ${users}">
+							<td th:text=${user.firstName}></td>
+							<td th:text=${user.lastName}></td>
+							<td th:text=${user.email}></td>
+							<td th:text=${user.phoneNumber}></td>
+							<td th:text=${user.fileType}></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
